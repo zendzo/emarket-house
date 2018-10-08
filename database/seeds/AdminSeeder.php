@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 
 class AdminSeeder extends Seeder
@@ -17,7 +18,7 @@ class AdminSeeder extends Seeder
         $administrator = User::create([
         	'username' => 'Administrator',
             'email' => 'admin@admin.com',
-	        'password' => 'adminadmin',
+	        'password' => Hash::make('adminadmin'),
 	        'role_id' => 1,
         ]);
 
