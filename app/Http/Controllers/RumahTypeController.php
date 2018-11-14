@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
+use App\RumahType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Lang;
 
-class MenuController extends Controller
+class RumahTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $page_title = Lang::get('application.menu setting');
+        $rumahType = RumahType::all();
 
-        return view('administrator.menu.index',compact(['page_title']));
+        return view('administrator.type-rumah.index', compact('RumahType'));
     }
 
     /**
@@ -44,10 +43,10 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\RumahType  $rumahType
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(RumahType $rumahType)
     {
         //
     }
@@ -55,10 +54,10 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\RumahType  $rumahType
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(RumahType $rumahType)
     {
         //
     }
@@ -67,10 +66,10 @@ class MenuController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\RumahType  $rumahType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, RumahType $rumahType)
     {
         //
     }
@@ -78,10 +77,10 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\RumahType  $rumahType
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RumahType $rumahType)
     {
         //
     }
