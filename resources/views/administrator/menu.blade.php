@@ -1,4 +1,4 @@
-<li class="treeview {{ active(['admin.user.*','admin.perumahan.*','admin.rumah.*','admin.type-rumah.*']) }}">
+<li class="treeview {{ active(['admin.user.*','admin.perumahan.*','admin.rumah.*','admin.type-rumah.*','angsuran.*','document.*']) }}">
   <a href="#">
     <i class="fa fa-list-alt"></i><span>Menu Utama</span>
     <span class="pull-right-container">
@@ -48,27 +48,27 @@
           </li>
       </ul>
   </li>
-  <li class="{{ active('admin.rumah.*') }}">
+  <li class="{{ active('angsuran.*') }}">
       <a href="#"><i class="fa  fa-money"></i> Data Angsuran
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
-          <li class="{{ active(['admin.rumah.index','admin.rumah.show']) }}">
-            <a href="{{ route('admin.rumah.index') }}""><i class="fa fa-home"></i> List Data</a>
+          <li class="{{ active(['angsuran.index']) }}">
+            <a href="{{ route('angsuran.index') }}""><i class="fa fa-home"></i> List Data</a>
           </li>
       </ul>
   </li>
-  <li class="{{ active('admin.rumah.*') }}">
+  <li class="{{ active('document.*') }}">
       <a href="#"><i class="fa fa-files-o"></i> Data Dokumen
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
-          <li class="{{ active(['admin.rumah.index','admin.rumah.show']) }}">
-            <a href="{{ route('admin.rumah.index') }}""><i class="fa  fa-home"></i> List Data</a>
+          <li class="{{ active(['document.index']) }}">
+            <a href="{{ route('document.index') }}""><i class="fa  fa-home"></i> List Data</a>
           </li>
       </ul>
   </li>

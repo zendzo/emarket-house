@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.frontend')
 
 @section('content')
     <div class="row">
@@ -15,8 +15,7 @@
               <p>{!! $perumahan->description !!}</p>
           </div>
           <div class="box-footer clearfix">
-              <a href="{{ route('admin.perumahan.edit', $perumahan->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
-              <a href="{{ route('admin.rumah.create') }}" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah Unit</a>
+              
           </div>
           <!-- /.box-body -->
         </div>
@@ -60,8 +59,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-                <a href="{{ route('admin.rumah.show', $rumah->id) }}" class="btn btn-info"><i class="fa fa-search"></i> Lihat</a>
-                <a href="{{ route('admin.rumah.show', $rumah->id) }}" class="btn btn-info"><i class="fa fa-home"></i> Book</a>
+                <a href="{{ route('rumah.show', $rumah->id) }}" class="btn btn-info"><i class="fa fa-search"></i> Lihat</a>
             </div>
           </div>
         </div>

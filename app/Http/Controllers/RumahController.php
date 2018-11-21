@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rumah;
 use Illuminate\Http\Request;
+use App\User;
 
 class RumahController extends Controller
 {
@@ -72,7 +73,9 @@ class RumahController extends Controller
      */
     public function show(Rumah $rumah)
     {
-        return view('administrator.rumah.show', compact('rumah'));
+        $users = User::where('role_id',2)->get();
+
+        return view('administrator.rumah.show', compact(['rumah','users']));
     }
 
     /**
@@ -107,5 +110,15 @@ class RumahController extends Controller
     public function destroy(Rumah $rumah)
     {
         //
+    }
+
+    public function userShow(Rumah $rumah)
+    {
+        if(is_null($rumah) || $rumah->booked_by !== auth()->id()){
+            return redirect()->back()->with('message', 'Anda Belum Booking Rumah!')
+                        ->with('status','Halaman Terbatas!')
+                        ->with('type','error');
+        }
+        return view('administrator.rumah.show', compact('rumah'));
     }
 }

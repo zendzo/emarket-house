@@ -37,7 +37,18 @@ class RumahTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            RumahType::create($request->all());
+                return redirect()->back()
+                ->with('message', 'Data Telah Tersimpan!')
+                ->with('status','success')
+                ->with('type','success');
+        }catch(\Exception $e){
+            return redirect()->back()
+                ->with('message', $e->getMessage())
+                ->with('status','error')
+                ->with('type','error');
+        }
     }
 
     /**
@@ -69,9 +80,23 @@ class RumahTypeController extends Controller
      * @param  \App\RumahType  $rumahType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RumahType $rumahType)
+    public function update(Request $request, $id)
     {
-        //
+        $rumahType = RumahType::findOrfail($id);
+        try{
+
+        $rumahType->update($request->all());
+        
+        return redirect()->back()
+                ->with('message', 'Data Telah Tersimpan!')
+                ->with('status','success')
+                ->with('type','success');
+        }catch(\Exception $e){
+            return redirect()->back()
+                    ->with('message', $e->getMessage()())
+                    ->with('status','error')
+                    ->with('type','error');
+        }
     }
 
     /**

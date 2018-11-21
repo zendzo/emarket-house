@@ -14,7 +14,9 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        $documents = Document::orderBy('id', 'DESC')->paginate(25);
+
+        return view('document.index', compact('documents'));
     }
 
     /**

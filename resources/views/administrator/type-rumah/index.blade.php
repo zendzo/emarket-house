@@ -11,21 +11,43 @@
           <tr>
             <th>#</th>
             <th>Type</th>
+            <th>Action</th>
           </tr>
       @foreach ($rumahType as $type)
           <tr>
             <td style="width: 10px;">{{ $type->id }}</td>
             <td>{{ $type->type }}</td>
-            <td>
-              <a href="{{ route('admin.rumah.show', $type->id) }}" class="btn btn-xs btn-primary"><i class="fa fa-search"></i> Detail</a>
-            </td>
+            <td width="20%">
+                <a class="btn btn-xs btn-info" href="{{ route('admin.type-rumah.show',$type->id) }}">
+                   <span class="fa fa-info fa-fw"></span>
+                </a>
+                <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#roleModalEdit-{{ $type->id }}" href="#">
+                   <span class="fa fa-pencil fa-fw"></span>
+                </a>
+                <!-- Modal Form Edit-->
+                <div class="modal fade" id="roleModalEdit-{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="roleModalEdit-{{ $type->id }}">
+                   @include('administrator.type-rumah.edit_modal')
+                </div>
+                   <form method="POST" action="{{ route('admin.role.destroy',$type->id) }}" accept-charset="UTF-8" style="display:inline">
+                   {{ method_field('DELETE') }}
+                   {{ csrf_field() }}
+                   <button type="submit" class="btn btn-xs btn-danger">
+                      <span class="fa fa-close fa-fw"></span>
+                   </button>
+                </form>
+             </td>
           </tr>
       @endforeach
     </tbody>
     </table>
     </div>
-    <div class="box-footer clearfix">
-      <a href="{{ route('admin.rumah.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
-    </div>
+     <div class="box-footer clearfix">
+        <a class="btn btn-success" data-toggle="modal" data-target="#roleModal" href="#"><span class="fa fa-plus fa-fw"></span>&nbsp;@lang('application.add new record')</a>   
+      </div>
+
+      <!-- Modal Form -->
+      <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModal">
+         @include('administrator.type-rumah.create_modal')
+      </div>
   </div>
 @endsection

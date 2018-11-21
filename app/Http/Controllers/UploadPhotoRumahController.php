@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Angsuran;
+use App\PhotoRumah;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
-class AngsuranController extends Controller
+class UploadPhotoRumahController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class AngsuranController extends Controller
      */
     public function index()
     {
-        $angsurans = Angsuran::orderBy('id', 'DESC')->paginate('25');
-
-        return view('angsuran.index', compact('angsurans'));
+        //
     }
 
     /**
@@ -38,21 +35,17 @@ class AngsuranController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         try{
-            $angsuran = Angsuran::create([
+            $photo = PhotoRumah::create([
+                'description' => $request->get('description'),
                 'rumah_id' => $request->get('rumah_id'),
-                'kode' => $request->get('kode'),
-                'total' => $request->get('total'),
-                'tanggal_bayar' => $request->get('tanggal_bayar'),
-                'tanggal_tempo' => Carbon::createFromFormat('d-m-Y', $request->get('tanggal_bayar'))->addMonth()
             ]);
 
-           if ($request->hasFile('document')) {
-            $angsuran->addMediaFromRequest('document')->toMediaCollection('angsuran');
-           }
+            if ($request->hasFile('photo')) {
+                $photo->addMediaFromRequest('photo')->toMediaCollection('photo');
+            }
 
-            if ($angsuran) {
+            if ($photo) {
                 return redirect()->back()->with('message', 'Upload Data Berhasil!')
                     ->with('status','Data Successfully Saved!')
                     ->with('type','success');
@@ -69,10 +62,10 @@ class AngsuranController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Angsuran  $angsuran
+     * @param  \App\PhotoRumah  $photoRumah
      * @return \Illuminate\Http\Response
      */
-    public function show(Angsuran $angsuran)
+    public function show(PhotoRumah $photoRumah)
     {
         //
     }
@@ -80,10 +73,10 @@ class AngsuranController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Angsuran  $angsuran
+     * @param  \App\PhotoRumah  $photoRumah
      * @return \Illuminate\Http\Response
      */
-    public function edit(Angsuran $angsuran)
+    public function edit(PhotoRumah $photoRumah)
     {
         //
     }
@@ -92,10 +85,10 @@ class AngsuranController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Angsuran  $angsuran
+     * @param  \App\PhotoRumah  $photoRumah
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Angsuran $angsuran)
+    public function update(Request $request, PhotoRumah $photoRumah)
     {
         //
     }
@@ -103,10 +96,10 @@ class AngsuranController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Angsuran  $angsuran
+     * @param  \App\PhotoRumah  $photoRumah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Angsuran $angsuran)
+    public function destroy(PhotoRumah $photoRumah)
     {
         //
     }

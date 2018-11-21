@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.frontend')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datepicker/datepicker3.css') }}"/>
@@ -35,7 +35,6 @@
               <a href="#" class="btn btn-large btn-info"><i class="fa fa-user"></i> {{ $rumah->bookedBy->username}}</a>
             @else
             <a href="#" data-toggle="modal" data-target="#bookingModal" class="btn btn-large btn-info"><i class="fa fa-home"></i> Belum Ada Pembeli | Book</a>
-            @include('rumah.booking')
             @endif
             <p>{!! $rumah->perumahan->description !!}</p>
         </div>

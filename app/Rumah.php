@@ -41,4 +41,9 @@ class Rumah extends Model
     {
         return $this->hasMany(Angsuran::class);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(PhotoRumah::class);
+    }
 }

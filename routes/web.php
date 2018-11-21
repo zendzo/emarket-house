@@ -1,8 +1,14 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('guest');
+Route::get('/', 'FrontEndController@home')->middleware('guest');
+
+Route::get('/perumahan/{perumahan}', 'FrontEndController@showPerumahan')
+->name('perumahan.show')
+->middleware('guest');
+
+Route::get('/rumah/{rumah}', 'FrontEndController@showRumah')
+->name('rumah.show')
+->middleware('guest');
 
 // Administrator Sections
 Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'administrator'], function(){
@@ -22,6 +28,10 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'administrator'], f
 
 	Route::resource('type-rumah', 'RumahTypeController');
 
+	Route::resource('photo-rumah', 'UploadPhotoRumahController');
+
+	Route::post('booking/rumah', 'BookingRumahController@booking')->name('booking.rumah');
+
 	Route::get('/application-menus',[
 		'as'	=>	'app.menu',
 		'uses'	=>	'Admin\MenuController@index'
@@ -31,6 +41,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'administrator'], f
 Route::resource('document', 'DocumentController');
 
 Route::resource('angsuran', 'AngsuranController');
+
+Route::get('user/rumah/{rumah}', 'RumahController@userShow')->name('user.rumah.show');
 
 Auth::routes();
 
