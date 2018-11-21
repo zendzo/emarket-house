@@ -25,9 +25,9 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" action="{{ route('admin.rumah.store') }}" method="POST">
+            <form class="form-horizontal" action="{{ route('admin.rumah.update', $rumah->id) }}" method="POST">
               @csrf
-              @method('POST')
+              @method('PATCH')
               <div class="box-body">
                 <div class="form-group{{ $errors->has('perumahan_id') ? ' has-error' : '' }}"">
                   <label for="perumahan_id" class="col-sm-2 control-label">Nama Perum.</label>
@@ -59,21 +59,10 @@
                       @endif
                   </div>
                 </div> <!-- form-group -->
-                <div class="form-group{{ $errors->has('total_unit') ? ' has-error' : '' }}"">
-                    <label for="total_unit" class="col-sm-2 control-label">Jumlah Unit</label>
-                    <div class="col-sm-10">
-                      <input class="form-control" type="text" name="total_unit" id="total_unit">
-                      @if ($errors->has('total_unit'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('total_unit') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                  </div> <!-- form-group -->
                   <div class="form-group{{ $errors->has('block') ? ' has-error' : '' }}"">
                       <label for="block" class="col-sm-2 control-label">Blok</label>
                       <div class="col-sm-10">
-                        <input class="form-control" type="text" name="block" id="block">
+                        <input class="form-control" type="text" name="block" id="block" value="{{ $rumah->block }}">
                         @if ($errors->has('block'))
                               <span class="help-block">
                                   <strong>{{ $errors->first('block') }}</strong>
@@ -82,11 +71,11 @@
                       </div>
                     </div> <!-- form-group -->
                     <div class="form-group{{ $errors->has('subsidi') ? ' has-error' : '' }}"">
-                        <label for="subsidi" class="col-sm-2 control-label">Jumlah Unit</label>
+                        <label for="subsidi" class="col-sm-2 control-label">Subsidi</label>
                         <div class="col-sm-10">
                           <select name="subsidi" id="subsidi" class="form-control">
-                            <option value="subsidi">Rumah Subsidi</option>
-                            <option value="tidak">Rumah Tidak Subsidi</option>
+                            <option value="subsidi" {{ $rumah->subsidi ? 'selected' : ''}}>Rumah Subsidi</option>
+                            <option value="tidak" {{ $rumah->subsidi ? '' : 'selected'}}>Rumah Tidak Subsidi</option>
                           </select>
                           @if ($errors->has('subsidi'))
                                 <span class="help-block">
@@ -95,24 +84,38 @@
                             @endif
                         </div>
                       </div> <!-- form-group -->
-                  <div class="form-group{{ $errors->has('unit_start') ? ' has-error' : '' }}"">
-                    <label for="unit_start" class="col-sm-2 control-label">No. Pertama</label>
+                      <div class="form-group{{ $errors->has('document_approved') ? ' has-error' : '' }}"">
+                            <label for="document_approved" class="col-sm-2 control-label">Dok. Pengajuan</label>
+                            <div class="col-sm-10">
+                              <select name="document_approved" id="document_approved" class="form-control">
+                                <option value="1" {{ $rumah->document_approved ? 'selected':'' }}>Lengkap</option>
+                                <option value="0" {{ $rumah->document_approved ? '':'selected' }}>Belum</option>
+                              </select>
+                              @if ($errors->has('document_approved'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('document_approved') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                          </div> <!-- form-group -->
+                  <div class="form-group{{ $errors->has('number') ? ' has-error' : '' }}"">
+                    <label for="number" class="col-sm-2 control-label">Nomor</label>
                     <div class="col-sm-10">
-                      <input class="form-control" type="text" name="unit_start" id="unit_start">
-                      @if ($errors->has('unit_start'))
+                      <input class="form-control" type="text" name="number" id="number" value="{{ $rumah->number }}">
+                      @if ($errors->has('number'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('unit_start') }}</strong>
+                                <strong>{{ $errors->first('number') }}</strong>
                             </span>
                         @endif
                     </div>
                   </div> <!-- form-group -->
-                  <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}"">
-                    <label for="price" class="col-sm-2 control-label">Harga</label>
+                  <div class="form-group{{ $errors->has('harga') ? ' has-error' : '' }}"">
+                    <label for="harga" class="col-sm-2 control-label">Harga</label>
                     <div class="col-sm-10">
-                      <input class="form-control" type="text" name="price" id="price">
-                      @if ($errors->has('price'))
+                      <input class="form-control" type="text" name="harga" id="harga" value="{{ $rumah->harga }}">
+                      @if ($errors->has('harga'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('price') }}</strong>
+                                <strong>{{ $errors->first('harga') }}</strong>
                             </span>
                         @endif
                     </div>

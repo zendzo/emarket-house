@@ -38,18 +38,20 @@
             @endif
             <p>{!! $rumah->perumahan->description !!}</p>
         </div>
+        @if (auth()->check())
         <div class="box-footer clearfix">
-            <a href="{{ route('admin.rumah.edit', $rumah->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
-            {{-- upload angsuran --}}
-            <a href="#"  data-toggle="modal" data-target="#angsuranModal" class="btn btn-primary"><i class="fa fa-money"></i> Upload Angsuran</a>
-            @include('angsuran.create_modal')
-            {{-- upload document --}}
-            <a href="#" data-toggle="modal" data-target="#documentModal" class="btn btn-primary"><i class="fa fa-files-o"></i> Upload Dokumen</a>
-            @include('document.create_modal')
-            {{-- upload photo --}}
-            <a href="#" data-toggle="modal" data-target="#photoModal" class="btn btn-danger"><i class="fa fa-camera-retro"></i> Upload Photo</a>
-            @include('photo.create_modal')
-        </div>
+          <a href="{{ route('admin.rumah.edit', $rumah->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+          {{-- upload angsuran --}}
+          <a href="#"  data-toggle="modal" data-target="#angsuranModal" class="btn btn-primary"><i class="fa fa-money"></i> Upload Angsuran</a>
+          @include('angsuran.create_modal') 
+          {{-- upload document --}}
+          <a href="#" data-toggle="modal" data-target="#documentModal" class="btn btn-primary"><i class="fa fa-files-o"></i> Upload Dokumen</a>
+          @include('document.create_modal')
+          {{-- upload photo --}}
+          <a href="#" data-toggle="modal" data-target="#photoModal" class="btn btn-danger"><i class="fa fa-camera-retro"></i> Upload Photo</a>
+          @include('photo.create_modal')
+      </div>
+        @endif
         <!-- /.box-body -->
       </div>
     </div>
@@ -69,7 +71,7 @@
               <div class="carousel-inner">
                 @forelse ($rumah->photos as $photo)
                   <div class="item {{ $loop->first ? 'active' : ''}}">
-                    <img class="img-responsive" src="{{ $photo->getFirstMediaUrl('photo') }}" alt="First slide">
+                    <img class="img-responsive" src="{{ asset($photo->getFirstMediaUrl('photo')) }}" alt="{{ $photo->description }}">
 
                     <div class="carousel-caption">
                      {{ $photo->description }}
@@ -97,6 +99,7 @@
         </div>
         <!-- /.box -->
       </div>
+      @if (auth()->check())
       <div class="col-md-6">
           <div class="box box-success">
               <div class="box-header">
@@ -122,7 +125,6 @@
                           </td>
                           <td>
                             <a href="{{ $document->getFirstMediaUrl('document') }}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
-                            <a href="{{ $document->getFirstMediaUrl('document') }}" class="btn btn-primary btn-xs"><i class="fa  fa-check"></i></a>
                           </td>
                         </tr>
                       @endforeach
@@ -132,7 +134,7 @@
             </div>
       </div>
       <div class="col-md-12">
-          <div class="box box-success">
+        <div class="box box-success">
               <div class="box-header">
                 <h3 class="box-title">Dokumen Angsuran</h3>
               </div>
@@ -173,5 +175,33 @@
               </div>
             </div>
       </div>
+      @endif
+      @if (auth()->guest())
+      <div class="col-md-6">
+        <div class="box box-success">
+              <div class="box-header">
+                <h3 class="box-title">Simluasi Angsuran Down Payment</h3>
+              </div>
+              <div class="box-body">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th style="width: 10px;">No</th>
+                      <th>Bulan Ke</th>
+                      <th>Nominal</th>
+                    </tr>
+                    @for ($i = 1; $i < 11; $i++)
+                       <tr>
+                         <td>{{ $i }}</td>
+                         <td>Bulan Ke-{{ $i }}</td>
+                         <td>Rp. {{ number_format($rumah->harga * 0.1 / 10 ,2,',','.')}}</td>
+                       </tr>
+                    @endfor
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      </div>
+      @endif
 </div>
 @endsection

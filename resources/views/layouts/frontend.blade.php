@@ -49,36 +49,21 @@
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Navigation <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 @if (Auth::guest())
-                  <li><a href="{{ route('login') }}">Login</a></li>
-                  <li><a href="{{ route('register') }}">Register</a></li>
-                  <li><a href="{{ route('password.request') }}">Reset Password</a></li>
-                @endif
-                @if (Auth::check())
-                  @if (Auth::user()->role_id === 2 || Auth::user()->role_id === 3)
-                    <li><a href="" id="create-modal">New Work Order</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{ route('job-done') }}">Issue Close</a></li>
-                    <li><a href="{{ route('home') }}">Issue Open</a></li>
-                  @endif
-                  @if (Auth::user()->role_id === 4)
-                  <li><a href="{{ route('job-done') }}">Issue Close</a></li>
-                  <li class="divider"></li>
-                  <li><a href="{{ route('home') }}">Issue Open</a></li>
-                  @endif
+                  <li><a href="{{ route('login') }}">Login</a></li>                 
                 @endif
                 {{-- <li class="divider"></li>
                 <li><a href="#">One more separated link</a></li> --}}
               </ul>
             </li>
           </ul>
-          <form class="navbar-form navbar-left" role="search">
+          {{-- <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
               <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
             </div>
-          </form>
+          </form> --}}
         </div>
         <!-- /.navbar-collapse -->
         <!-- Navbar Right Menu -->

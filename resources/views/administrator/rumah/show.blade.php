@@ -34,22 +34,26 @@
             @if ($rumah->bookedBy)
               <a href="#" class="btn btn-large btn-info"><i class="fa fa-user"></i> {{ $rumah->bookedBy->username}}</a>
             @else
-            <a href="#" data-toggle="modal" data-target="#bookingModal" class="btn btn-large btn-info"><i class="fa fa-home"></i> Belum Ada Pembeli | Book</a>
+              <a href="#" data-toggle="modal" data-target="#bookingModal" class="btn btn-large btn-info {{ auth()->user()->role_id !== 1 ? 'disabled':''}}"><i class="fa fa-home"></i> Belum Ada Pembeli | Book</a>
             @include('rumah.booking')
             @endif
             <p>{!! $rumah->perumahan->description !!}</p>
         </div>
         <div class="box-footer clearfix">
+            @if (auth()->user()->role_id === 1)
             <a href="{{ route('admin.rumah.edit', $rumah->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+            @endif
             {{-- upload angsuran --}}
             <a href="#"  data-toggle="modal" data-target="#angsuranModal" class="btn btn-primary"><i class="fa fa-money"></i> Upload Angsuran</a>
             @include('angsuran.create_modal')
             {{-- upload document --}}
             <a href="#" data-toggle="modal" data-target="#documentModal" class="btn btn-primary"><i class="fa fa-files-o"></i> Upload Dokumen</a>
             @include('document.create_modal')
-            {{-- upload photo --}}
-            <a href="#" data-toggle="modal" data-target="#photoModal" class="btn btn-danger"><i class="fa fa-camera-retro"></i> Upload Photo</a>
-            @include('photo.create_modal')
+            @if (auth()->user()->role_id === 1)
+              {{-- upload photo --}}
+              <a href="#" data-toggle="modal" data-target="#photoModal" class="btn btn-danger"><i class="fa fa-camera-retro"></i> Upload Photo</a>
+              @include('photo.create_modal')
+            @endif
         </div>
         <!-- /.box-body -->
       </div>
@@ -116,14 +120,19 @@
                           <td>{{ $document->type->name }}</td>
                           <td>
                             @if ($document->approved)
-                              <span class="badge bg-green">diverifikasi</span>
+                              <span class="badge bg-green">sudah verifikasi</span>
                             @else
                             <span class="badge bg-red">belum diverifikasi</span>
                             @endif
                           </td>
                           <td>
                             <a href="{{ $document->getFirstMediaUrl('document') }}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
-                            <a href="{{ $document->getFirstMediaUrl('document') }}" class="btn btn-primary btn-xs"><i class="fa  fa-check"></i></a>
+                            <form action="{{ route('document.update', $document->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="angsuran_id" value="{{ $document->id }}">
+                                <button class="btn btn-primary btn-xs {{ $document->approved ? 'disabled':''}}" type="submit"><i class="fa fa-check"></i></button>
+                              </form>
                           </td>
                         </tr>
                       @endforeach
@@ -165,7 +174,12 @@
                           </td>
                           <td>
                               <a href="{{ $angsuran->getFirstMediaUrl('angsuran') }}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
-                              <a href="{{ $angsuran->getFirstMediaUrl('angsuran') }}" class="btn btn-primary btn-xs"><i class="fa  fa-check"></i></a>
+                            <form action="{{ route('angsuran.update', $angsuran->id) }}" method="POST" style="display: inline;">
+                              @csrf
+                              @method('PATCH')
+                              <input type="hidden" name="angsuran_id" value="{{ $angsuran->id }}">
+                              <button class="btn btn-primary btn-xs {{ $rumah->angsuran ? '':'disabled'}}" type="submit"><i class="fa fa-check"></i></button>
+                            </form>
                           </td>
                         </tr>
                     @endforeach

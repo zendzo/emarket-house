@@ -14,6 +14,7 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
+                  <th>No.</th>
                   <th>Username</th>
                   <th>Email</th>
                   <th>User Role</th>
@@ -24,6 +25,7 @@
                   @if(!is_null($users))
                     @foreach($users as $user)
                      <tr>
+                       <td>{{ $user->id }}</td>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->role->name }}</td>

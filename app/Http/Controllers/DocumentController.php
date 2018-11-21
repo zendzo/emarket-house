@@ -92,7 +92,22 @@ class DocumentController extends Controller
      */
     public function update(Request $request, Document $document)
     {
-        //
+        try{
+            $document->approved = true;
+            $document->save();
+
+            if ($document) {
+                return redirect()->back()->with('message', 'Dokumen Telah Disetujui!')
+                    ->with('status','Data Successfully Saved!')
+                    ->with('type','success');
+            }
+
+            }catch (\Exception $e){
+                return redirect()->back()->with('message', $e->getMessage())
+                        ->with('status','Failed to Save Data!')
+                        ->with('type','error')
+                        ->withInput();
+            }
     }
 
     /**

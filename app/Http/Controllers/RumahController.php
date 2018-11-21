@@ -98,7 +98,28 @@ class RumahController extends Controller
      */
     public function update(Request $request, Rumah $rumah)
     {
-        //
+        try{
+
+            $rumah->rumah_type_id = $request->get('rumah_type_id');
+            $rumah->perumahan_id = $request->get('perumahan_id');
+            $rumah->block = $request->get('block');
+            $rumah->number = $request->get('number');
+            $rumah->subsidi = $request->get('subsidi');
+            $rumah->harga = $request->get('harga');
+            $rumah->save();
+
+            if($rumah){
+                return redirect()->back()->with('message', 'Update Data Berhasil!')
+                ->with('status','Data Successfully Saved!')
+                ->with('type','success');
+            }
+
+            }catch (\Exception $e){
+                return redirect()->back()->with('message', $e->getMessage())
+                        ->with('status','Failed to Save Data!')
+                        ->with('type','error')
+                        ->withInput();
+            }
     }
 
     /**

@@ -96,8 +96,23 @@ class AngsuranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Angsuran $angsuran)
-    {
-        //
+    {        
+        try{
+            $angsuran->verified = true;
+            $angsuran->save();
+
+            if ($angsuran) {
+                return redirect()->back()->with('message', 'Dokumen Telah Disetujui!')
+                    ->with('status','Data Successfully Saved!')
+                    ->with('type','success');
+            }
+
+            }catch (\Exception $e){
+                return redirect()->back()->with('message', $e->getMessage())
+                        ->with('status','Failed to Save Data!')
+                        ->with('type','error')
+                        ->withInput();
+            }
     }
 
     /**
