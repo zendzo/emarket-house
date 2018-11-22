@@ -41,7 +41,13 @@
                         </td>
                         <td>
                             <a href="{{ $angsuran->getFirstMediaUrl('angsuran') }}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
-                            <a href="{{ $angsuran->getFirstMediaUrl('angsuran') }}" class="btn btn-primary btn-xs"><i class="fa  fa-check"></i></a>
+                            <a href="{{ $angsuran->getFirstMediaUrl('angsuran') }}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
+                            <form action="{{ route('angsuran.update', $angsuran->id) }}" method="POST" style="display: inline;">
+                              @csrf
+                              @method('PATCH')
+                              <input type="hidden" name="angsuran_id" value="{{ $angsuran->id }}">
+                              <button class="btn btn-primary btn-xs {{ $angsuran->verified ? 'disabled':''}}" type="submit"><i class="fa fa-check"></i></button>
+                            </form>
                         </td>
                       </tr>
                   @endforeach
