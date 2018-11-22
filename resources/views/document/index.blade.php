@@ -35,7 +35,12 @@
                         </td>
                         <td>
                           <a href="{{ $document->getFirstMediaUrl('document') }}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
-                          <a href="{{ $document->getFirstMediaUrl('document') }}" class="btn btn-primary btn-xs"><i class="fa  fa-check"></i></a>
+                          <form action="{{ route('document.update', $document->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" name="angsuran_id" value="{{ $document->id }}">
+                            <button class="btn btn-primary btn-xs {{ $document->approved ? 'disabled':''}}" type="submit"><i class="fa fa-check"></i></button>
+                          </form>
                         </td>
                       </tr>
                     @endforeach
