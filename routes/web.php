@@ -28,14 +28,22 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'administrator'], f
 
 	Route::resource('type-rumah', 'RumahTypeController');
 
+	Route::resource('type-document', 'DocumentTypeController');
+
 	Route::resource('photo-rumah', 'UploadPhotoRumahController');
 
 	Route::post('booking/rumah', 'BookingRumahController@booking')->name('booking.rumah');
 
-	Route::get('/application-menus',[
-		'as'	=>	'app.menu',
-		'uses'	=>	'Admin\MenuController@index'
-	]);
+	Route::post('verified/{id}', 'PaidVerificationController@verifiedPayment')->name('paid.angsuran');
+
+	Route::get('send/to-all', 'SendPaymentNotificationController@sendToAll')->name('send.all');
+
+	Route::get('send/to/{id}', 'SendPaymentNotificationController@sendTo')->name('send.to');
+
+	// Route::get('/application-menus',[
+	// 	'as'	=>	'app.menu',
+	// 	'uses'	=>	'Admin\MenuController@index'
+	// ]);
 });
 
 Route::resource('document', 'DocumentController');

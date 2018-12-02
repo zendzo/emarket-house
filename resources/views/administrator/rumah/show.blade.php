@@ -43,10 +43,6 @@
             @if (auth()->user()->role_id === 1)
             <a href="{{ route('admin.rumah.edit', $rumah->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
             @endif
-            {{-- upload angsuran --}}
-            <a href="#"  data-toggle="modal" data-target="#angsuranModal" class="btn btn-primary"><i class="fa fa-money"></i> Upload Angsuran</a>
-            @include('angsuran.create_modal')
-            {{-- upload document --}}
             <a href="#" data-toggle="modal" data-target="#documentModal" class="btn btn-primary"><i class="fa fa-files-o"></i> Upload Dokumen</a>
             @include('document.create_modal')
             @if (auth()->user()->role_id === 1)
@@ -156,6 +152,7 @@
                       <th>Tanggal. Temp</th>
                       <th>Total</th>
                       <th>Status</th>
+                      <th>Status Bayar</th>
                       <th>#</th>
                     </tr>
                     @foreach ($rumah->angsurans as $key => $angsuran)
@@ -163,7 +160,7 @@
                           <td>{{ $key += 1 }}</td>
                           <td>{{ $angsuran->kode }}</td>
                           <td>{{ $angsuran->tanggal_bayar }}</td>
-                          <td>{{ $angsuran->tanggal_tempo }}</td>
+                          <td>{{ $angsuran->tanggal_tempo->format('d-m-Y') }}</td>
                           <td>{{ $angsuran->total }}</td>
                           <td>
                             @if ($angsuran->verified)
@@ -173,13 +170,30 @@
                             @endif
                           </td>
                           <td>
+                            @if ($angsuran->paid)
+                                <span class="badge bg-green"><i class="fa fa-check"></i> sudah bayar</span>
+                            @else
+                            <span class="badge bg-red"><i class="fa fa-ban"></i> belum bayar</span>
+                            @endif
+                          </td>
+                          <td>
                             <a href="{{ $angsuran->getFirstMediaUrl('angsuran') }}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
-                            <form action="{{ route('angsuran.update', $angsuran->id) }}" method="POST" style="display: inline;">
-                              @csrf
-                              @method('PATCH')
-                              <input type="hidden" name="angsuran_id" value="{{ $angsuran->id }}">
-                              <button class="btn btn-primary btn-xs {{ $rumah->angsuran ? 'disabled':''}}" type="submit"><i class="fa fa-check"></i></button>
-                            </form>
+                            {{-- upload angsuran --}}
+                            @if (!$angsuran->paid)
+                              <a data-toggle="modal" data-target="#angsuranModal-{{ $angsuran->id }}"  class="btn btn-danger btn-xs"><i class="fa fa-money"></i></a>
+                              @include('angsuran.create_modal')
+                            @endif
+                            @if (auth()->user()->role_id === 1)
+                            <form action="{{ route('admin.paid.angsuran', $angsuran->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="angsuran_id" value="{{ $angsuran->id }}">
+                                <button class="btn btn-primary btn-xs {{ $rumah->angsuran ? 'disabled':''}}" type="submit"><i class="fa fa-check"></i></button>
+                              </form>
+                              @if (!$angsuran->paid)
+                                <a href="{{ $angsuran->getFirstMediaUrl('angsuran') }}" class="btn btn-warning btn-xs"><i class="fa fa-envelope"></i></a>
+                              @endif
+                            @endif
                           </td>
                         </tr>
                     @endforeach

@@ -1,4 +1,4 @@
-<li class="treeview {{ active(['admin.user.*','admin.perumahan.*','admin.rumah.*','admin.type-rumah.*','angsuran.*','document.*','admin.role.*']) }}">
+<li class="treeview {{ active(['admin.user.*','admin.perumahan.*','admin.rumah.*','admin.type-rumah.*','angsuran.*','document.*','admin.role.*','admin.type-document.*']) }}">
   <a href="#">
     <i class="fa fa-list-alt"></i><span>Menu Utama</span>
     <span class="pull-right-container">
@@ -72,7 +72,7 @@
           </li>
       </ul>
   </li>
-  <li class="{{ active(['admin.type-rumah.*','admin.role.*']) }}">
+  <li class="{{ active(['admin.type-rumah.*','admin.role.*','admin.type-document.*']) }}">
       <a href="#"><i class="fa fa-database"></i> Data System
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
@@ -85,10 +85,15 @@
             </a>
           </li>
           <li class="{{ active('admin.role.index') }}">
-              <a href="{{ route('admin.role.index') }}">
-                <i class="fa fa-users"></i> Type User
-              </a>
-            </li>
+            <a href="{{ route('admin.role.index') }}">
+              <i class="fa fa-users"></i> Type User
+            </a>
+          </li>
+          <li class="{{ active('admin.type-document.index') }}">
+            <a href="{{ route('admin.type-document.index') }}">
+              <i class="fa fa-users"></i> Type Document
+            </a>
+          </li>
       </ul>
   </li>
 </li>

@@ -13,14 +13,23 @@ class DocumentTypesTablesSeeder extends Seeder
     public function run()
     {
         $documentTypes = [
-            'KTP',
-            'Kartu Keluarga',
-            'Rekening Listrik'
+            ['name'	=>	'KTP','keterangan' => 'Kartu Tanda Penduduk'],
+            ['name' =>  'KK','keterangan' => 'Kartu Keluarga'],
+            ['name' =>  'SN','keterangan' => 'Surat Nikah'],
+            ['name' =>  'PP','keterangan' => 'Pas Photo'],
+            ['name' =>  'RKB','keterangan' => 'Rekening Koran Bank'],
+            ['name' =>  'SKJ','keterangan' => 'Surat keterangan Kerja Asli'],
+            ['name' =>  'DSG','keterangan' => 'Daftar Slip Gaji'],
+            ['name' =>  'SK','keterangan' => 'SK Pengangkatan PNS'],
+            ['name' =>  'KP','keterangan' => 'Kartu Pegawai'],
+            ['name' =>  'NPWP','keterangan' => 'Nomor Pokok Wajib Pajak'],
+            ['name' =>  'SIUP','keterangan' => 'SITU / SIUP / TDP'],
+            ['name' =>  'IP','keterangan' => 'Photocopy Izin Praktek'],
+            ['name' =>  'AKP','keterangan' => 'Akte Perusahaan'],
+            ['name' =>  'SKBM','keterangan' => 'Surat Keterangan Belum Memiliki Rumah Dari Lurah'],
         ];
 
-        foreach ($documentTypes as $document) {
-            DocumentType::create(['name' => $document]);
-        }
+        DB::table('document_types')->insert($documentTypes);
 
         $this->command->info('Create Document Types!');
     }

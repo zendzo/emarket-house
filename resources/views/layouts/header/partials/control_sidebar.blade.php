@@ -175,7 +175,7 @@
         <div class="form-group">
         <label class="control-sidebar-subheading">
             @lang('application.menu desc')
-        <a href="{{ route('admin.app.menu') }}" class="text-red pull-right"><i class="fa fa-tasks"></i></a>
+        {{-- <a href="{{ route('admin.app.menu') }}" class="text-red pull-right"><i class="fa fa-tasks"></i></a> --}}
         </label>
         </div>
         <!-- /.form-group -->

@@ -1,4 +1,4 @@
-<div class="modal fade" id="angsuranModal" tabindex="-1" role="dialog" aria-labelledby="angsuranModal">
+<div class="modal fade" id="angsuranModal-{{ $angsuran->id }}" tabindex="-1" role="dialog" aria-labelledby="angsuranModal-{{ $angsuran->id }}">
         <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
@@ -7,15 +7,15 @@
                   <h4 class="modal-title">{{ $page_title or config('app.name') }}</h4>
                </div>
                <div class="modal-body">
-                  <form class="form-horizontal"  action="{{ route('angsuran.store') }}" method="POST" enctype="multipart/form-data">
+                  <form class="form-horizontal"  action="{{ route('angsuran.update', $angsuran->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
-                  @method('POST')
+                  @method('PATCH')
                   <input type="hidden" name="rumah_id" value="{{ $rumah->id }}">
                   <input type="hidden" name="kode" value="{{ strtoupper(str_random(8)) }}">
                   <div class="form-group{{ $errors->has('total') ? ' has-error' : '' }}">
                       <label for="total" class="col-sm-2 control-label">Nominal</label>
                       <div class="col-sm-10">
-                      <input class="form-control" type="text" name="total" id="total">
+                      <input class="form-control" type="text" name="total" id="total" value="{{ $angsuran->total }}">
                       @if ($errors->has('total'))
                           <span class="help-block">
                               <strong>{{ $errors->first('total') }}</strong>

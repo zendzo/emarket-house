@@ -16,6 +16,7 @@ class CreateDocumentTypesTable extends Migration
         Schema::create('document_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
+            $table->string('keterangan', 200)->nullable();
             $table->timestamps();
         });
     }

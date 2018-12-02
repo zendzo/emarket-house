@@ -16,7 +16,7 @@
                     <div class="col-sm-10">
                     <select name="document_type_id" id="document_type_id" class="form-control">
                         @foreach ($documentType as $type)
-                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            <option value="{{ $type->id }}">{{ $type->name }} - ({{ $type->keterangan }})</option>
                         @endforeach
                     </select>
                     @if ($errors->has('document_type_id'))

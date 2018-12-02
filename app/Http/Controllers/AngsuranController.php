@@ -96,13 +96,26 @@ class AngsuranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Angsuran $angsuran)
-    {        
+    {
+        if ($request->get('total') < $angsuran->total) {
+            return redirect()->back()->with('message', 'Total Angsuran : '.$angsuran->total)
+                ->with('status','Nominal Tidak Cukup!')
+                ->with('type','warning');
+        }
+
         try{
-            $angsuran->verified = true;
-            $angsuran->save();
+            $angsuran->update([
+                'total' => $request->get('total'),
+                'tanggal_bayar' => $request->get('tanggal_bayar'),
+                'paid' => true
+            ]);
+
+           if ($request->hasFile('document')) {
+            $angsuran->addMediaFromRequest('document')->toMediaCollection('angsuran');
+           }
 
             if ($angsuran) {
-                return redirect()->back()->with('message', 'Dokumen Telah Disetujui!')
+                return redirect()->back()->with('message', 'Upload Data Berhasil!')
                     ->with('status','Data Successfully Saved!')
                     ->with('type','success');
             }

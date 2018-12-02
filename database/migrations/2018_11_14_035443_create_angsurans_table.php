@@ -18,9 +18,10 @@ class CreateAngsuransTable extends Migration
             // $table->integer('user_id');
             $table->integer('rumah_id');
             $table->string('kode',8);
-            $table->integer('total');
+            $table->integer('total')->nullable();
             $table->boolean('verified')->nullable()->default(false);
-            $table->date('tanggal_bayar');
+            $table->boolean('paid')->nullable()->default(false);
+            $table->date('tanggal_bayar')->nullable();
             $table->date('tanggal_tempo')->nullabel();
             $table->timestamps();
         });

@@ -18,7 +18,8 @@ class Angsuran extends Model implements HasMedia
 		'total',
 		'tanggal_bayar',
         'tanggal_tempo',
-        'angsuran'
+        'angsuran',
+        'paid'
     ];
 
     protected $dates = ['tanggal_bayar','tanggal_tempo'];
