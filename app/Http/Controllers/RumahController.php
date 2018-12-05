@@ -75,7 +75,9 @@ class RumahController extends Controller
     {
         $users = User::where('role_id',2)->get();
 
-        return view('administrator.rumah.show', compact(['rumah','users']));
+        $dp = $rumah->harga * 0.1;
+
+        return view('administrator.rumah.show', compact(['rumah','users','dp']));
     }
 
     /**
@@ -140,6 +142,9 @@ class RumahController extends Controller
                         ->with('status','Halaman Terbatas!')
                         ->with('type','error');
         }
-        return view('administrator.rumah.show', compact('rumah'));
+
+        $dp = $rumah->harga * 0.1;
+
+        return view('administrator.rumah.show', compact(['rumah','dp']));
     }
 }

@@ -197,8 +197,19 @@
                           </td>
                         </tr>
                     @endforeach
+                    <tr>
+                      <td colspan="4" style="text-align: right"><b>Total</b></td>
+                      <td colspan="4"> {{ $rumah->angsurans->sum('total') }}</td>
+                    </tr>
                   </tbody>
                 </table>
+              </div>
+              <div class="box-footer clearfix">
+                @if ($dp == $rumah->angsurans->sum('total'))
+                  <a class="btn btn-success" href="#"><i class="fa fa-money"></i> Angsuran Lunas</a>
+                @else
+                  <a class="btn btn-danger" href="#"><i class="fa fa-money"></i> Angsuran Belum Lunas</a>
+                @endif
               </div>
             </div>
       </div>
